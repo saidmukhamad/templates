@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src/shared/@/"),
         shared: path.resolve(__dirname, "./src/shared/"),
         components: path.resolve(__dirname, "./src/components/"),
+        widgets: path.resolve(__dirname, "./src/widgets/"),
       },
     },
   };
