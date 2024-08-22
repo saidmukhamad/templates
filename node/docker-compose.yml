@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./prisma:/usr/src/app/prisma
+      - ./src:/usr/src/app/src
+      - sqlite_data:/usr/src/app/prisma
+    environment:
+      - DATABASE_URL=file:/usr/src/app/prisma/dev.db
+    command: sh -c "npx prisma migrate deploy && npm start"
+
+volumes:
+  sqlite_data:
