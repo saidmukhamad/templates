@@ -24,13 +24,14 @@ const useWindowWidth = () => {
   return windowWidth;
 };
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBFuqGYLIjSrvfikyB5Yl8uVYQcBMmVNnc";
+const GOOGLE_MAPS_API_KEY = "zxcv";
 
 interface GoogleMapsScriptStatus {
   loaded: boolean;
   error: Error | null;
 }
 
+// Just to download google maps
 export const useGoogleMapsScript = (): GoogleMapsScriptStatus => {
   const [scriptStatus, setScriptStatus] = useState<GoogleMapsScriptStatus>({
     loaded: false,
@@ -38,6 +39,7 @@ export const useGoogleMapsScript = (): GoogleMapsScriptStatus => {
   });
 
   useEffect(() => {
+    // @ts-ignore
     if (window.google && window.google.maps) {
       setScriptStatus({ loaded: true, error: null });
       return;

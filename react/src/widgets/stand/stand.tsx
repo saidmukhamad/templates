@@ -1,21 +1,26 @@
-import React, { useState, ReactNode, PropsWithChildren } from "react";
+import React, { useState, ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 interface StandProps {
   backgroundColor: string;
+  children?: ReactNode;
 }
 
-const Stand: React.FC<PropsWithChildren<StandProps>> = ({ children, backgroundColor }) => {
+const Stand: React.FC<StandProps> = ({ children, backgroundColor }) => {
   return (
-    <div style={{ backgroundColor, padding: "20px" }} className="flex  justify-center items-center w-full h-full min-h-[100dvh]">
+    <div style={{ backgroundColor, padding: "20px" }} className="flex justify-center items-center w-full h-full min-h-[100dvh]">
       {children}
     </div>
   );
 };
 
-const DebugStand: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+interface DebugStandProps {
+  children?: ReactNode;
+}
+
+const DebugStand = ({ children }: DebugStandProps): JSX.Element => {
   return (
     <Card className="mt-4">
       <CardContent>
@@ -30,7 +35,7 @@ interface ComponentDebugSettingsProps {
   onColorChange: (color: string) => void;
 }
 
-const ComponentDebugSettings: React.FC<ComponentDebugSettingsProps> = ({ onColorChange }) => {
+const ComponentDebugSettings = ({ onColorChange }: ComponentDebugSettingsProps): JSX.Element => {
   return (
     <div>
       <Label htmlFor="bgColor">Background Color</Label>
@@ -39,7 +44,11 @@ const ComponentDebugSettings: React.FC<ComponentDebugSettingsProps> = ({ onColor
   );
 };
 
-const StandWithDebug: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+interface StandWithDebugProps {
+  children?: ReactNode;
+}
+
+const StandWithDebug = ({ children }: StandWithDebugProps): JSX.Element => {
   const [bgColor, setBgColor] = useState("black");
 
   const handleColorChange = (color: string) => {
@@ -52,10 +61,10 @@ const StandWithDebug: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child)) {
       if (child.type === DebugStand) {
-        debugStand = React.cloneElement(child, {
+        debugStand = React.cloneElement(child as React.ReactElement<DebugStandProps>, {
           children: React.Children.map(child.props.children, (debugChild) => {
             if (React.isValidElement(debugChild) && debugChild.type === ComponentDebugSettings) {
-              return React.cloneElement(debugChild, { onColorChange: handleColorChange });
+              return React.cloneElement(debugChild as React.ReactElement<ComponentDebugSettingsProps>, { onColorChange: handleColorChange });
             }
             return debugChild;
           }),
