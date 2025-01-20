@@ -10,7 +10,8 @@
     "paths": {
       "*": ["./src/*"],
       "@/*": ["./src/shared/*"],
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
+      "shared/*": ["./src/shared/*"]
     }
   },
   "include": ["vite.config.ts"]
