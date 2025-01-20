@@ -1,5 +1,6 @@
 type Props = {};
 
+import { StateManagementTest } from "widgets/state-tests/zustand";
 function App({}: Props) {
   return (
     <div className="w-screen h-screen flex flex-col space-y-4 p-4 ">
@@ -10,7 +11,7 @@ function App({}: Props) {
         </div>
 
         <div className="h-64 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-          <p className="text-gray-500">Add your components here to test them in isolation</p>
+          <StateManagementTest />
         </div>
 
         <div className="mt-4 p-4 bg-gray-50 rounded-md">
