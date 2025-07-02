@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ForwardedRef } from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { Label } from "./label";
 import { Input } from "./input";
 
@@ -10,54 +10,52 @@ interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimit
   onValueCommit?: (value: number[]) => void;
 }
 
-const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
-  ({ className, value: externalValue, onValueChange, onValueCommit, ...props }, ref: ForwardedRef<React.ElementRef<typeof SliderPrimitive.Root>>) => {
-    const [value, setValue] = useState<number[]>(externalValue || [0, 0]);
-    const [committedValue, setCommittedValue] = useState<number[]>(externalValue || [0, 0]);
+const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, SliderProps>(({ className, value: externalValue, onValueChange, onValueCommit, ...props }, ref: ForwardedRef<React.ElementRef<typeof SliderPrimitive.Root>>) => {
+  const [value, setValue] = useState<number[]>(externalValue || [0, 0]);
+  const [committedValue, setCommittedValue] = useState<number[]>(externalValue || [0, 0]);
 
-    useEffect(() => {
-      if (externalValue) {
-        setValue(externalValue);
-        setCommittedValue(externalValue);
-      }
-    }, [externalValue]);
+  useEffect(() => {
+    if (externalValue) {
+      setValue(externalValue);
+      setCommittedValue(externalValue);
+    }
+  }, [externalValue]);
 
-    const handleValueCommit = (vals: number[]) => {
-      setCommittedValue(vals);
-      if (onValueCommit) {
-        onValueCommit(vals);
-      }
-    };
+  const handleValueCommit = (vals: number[]) => {
+    setCommittedValue(vals);
+    if (onValueCommit) {
+      onValueCommit(vals);
+    }
+  };
 
-    return (
-      <SliderPrimitive.Root
-        ref={ref}
-        className={cn("relative flex w-full touch-none select-none items-center", className)}
-        value={value}
-        onValueChange={(newValue: number[]) => {
-          setValue(newValue);
-          if (onValueChange) {
-            onValueChange(newValue);
-          }
-        }}
-        onValueCommit={handleValueCommit}
-        onPointerLeave={(e) => {
-          if (props.onPointerLeave) props.onPointerLeave(e);
+  return (
+    <SliderPrimitive.Root
+      ref={ref}
+      className={cn("relative flex w-full touch-none select-none items-center", className)}
+      value={value}
+      onValueChange={(newValue: number[]) => {
+        setValue(newValue);
+        if (onValueChange) {
+          onValueChange(newValue);
+        }
+      }}
+      onValueCommit={handleValueCommit}
+      onPointerLeave={(e) => {
+        if (props.onPointerLeave) props.onPointerLeave(e);
 
-          if (committedValue[0] !== value[0] || committedValue[1] !== value[1]) {
-            handleValueCommit(value);
-          }
-        }}
-        {...props}
-      >
-        <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
-          <SliderPrimitive.Range className="absolute h-full bg-primary" />
-        </SliderPrimitive.Track>
-        <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
-      </SliderPrimitive.Root>
-    );
-  }
-);
+        if (committedValue[0] !== value[0] || committedValue[1] !== value[1]) {
+          handleValueCommit(value);
+        }
+      }}
+      {...props}
+    >
+      <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
+        <SliderPrimitive.Range className="absolute h-full bg-primary" />
+      </SliderPrimitive.Track>
+      <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
+    </SliderPrimitive.Root>
+  );
+});
 
 const default_min_value = 1;
 const default_max_value = 30;

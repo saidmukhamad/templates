@@ -15,7 +15,12 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["shared/@/*"]
+      "@/*": ["./*"],
+      "@app/*": ["app/*"],
+      "@pages/*": ["pages/*"],
+      "@shared/*": ["shared/*"],
+      "@widgets/*": ["widgets/*"],
+      "@components/*": ["shared/@/components/*"]
     },
     "noUnusedLocals": false,
     "noEmitOnError": false,

@@ -67,7 +67,7 @@ const StandWithDebug = ({ children }: StandWithDebugProps): JSX.Element => {
               return React.cloneElement(debugChild as React.ReactElement<ComponentDebugSettingsProps>, { onColorChange: handleColorChange });
             }
             return debugChild;
-          }),
+          })
         });
       } else {
         standChildren.push(child);
