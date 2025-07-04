@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationProvider } from '@shared/providers/notification-provider';
+import { ThemeProvider } from '@shared/providers/theme-provider';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -8,9 +9,11 @@ interface ProvidersProps {
 export const Providers = ({ children }: ProvidersProps) => {
   return (
     <BrowserRouter>
-      <NotificationProvider>
-        {children}
-      </NotificationProvider>
+      <ThemeProvider>
+        <NotificationProvider>
+          {children}
+        </NotificationProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };

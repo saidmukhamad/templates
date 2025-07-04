@@ -28,21 +28,21 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-white dark:bg-gray-800 min-h-full">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your app today.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
+        <p className="text-gray-600 dark:text-gray-400 mt-2">Welcome back! Here's what's happening with your app today.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat) => (
           <Card key={stat.name}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">{stat.name}</CardTitle>
-              <stat.icon className="h-4 w-4 text-gray-400" />
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.name}</CardTitle>
+              <stat.icon className="h-4 w-4 text-gray-400 dark:text-gray-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stat.value}</div>
               <p className={`text-xs flex items-center mt-1 ${stat.changeType === "increase" ? "text-green-600" : "text-red-600"}`}>
                 {stat.changeType === "increase" ? <ArrowUp className="mr-1 h-3 w-3" /> : <ArrowDown className="mr-1 h-3 w-3" />}
                 {stat.change} from last month
